@@ -390,7 +390,7 @@ function productCard(p){
     <div class="info">
       <div class="cat">${p.category}</div>
       <h3>${p.title}</h3>
-      <div style="display:flex;justify-content:space-between;align-items:center"><span class="price">${p.price}</span><button data-fav="${p.id}" style="border:0;background:transparent;font-size:1.15rem;color:#ff2f8a">${fav}</button></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="price">${formatPrice(p.price)}</span><button data-fav="${p.id}" style="border:0;background:transparent;font-size:1.15rem;color:#ff2f8a">${fav}</button></div>
       <button class="detailsBtn" data-open="${p.id}">View Details</button>
     </div>
   </article>`;
@@ -418,6 +418,16 @@ function closeMobileNav(){
 function renderCategories(){
   document.getElementById("categoryPanel").innerHTML = labels.map(c=>`<button data-cat-menu="${c}">${c} <span style="float:right;color:#8a94a3">${countFor(c)}</span></button>`).join("");
   document.querySelectorAll("[data-cat-menu]").forEach(b=>b.onclick=()=>{activeCategory=b.dataset.catMenu;productsExpanded=false;renderSidebar();renderProducts();closeMobileNav();document.getElementById("shop").scrollIntoView({behavior:"smooth"})});
+}
+
+
+function formatPrice(value){
+  if(value === null || value === undefined) return "";
+  const raw = String(value).trim();
+  const match = raw.match(/\$?\s*([0-9]+(?:\.[0-9]+)?)/);
+  if(!match) return raw;
+  const amount = Number(match[1]);
+  return Number.isFinite(amount) ? `$${amount.toFixed(2)}` : raw;
 }
 
 function visibleProducts(){
@@ -460,7 +470,7 @@ const modal = document.getElementById("modal");
 function openModal(p){
   document.getElementById("modalCat").textContent = p.category;
   document.getElementById("modalTitle").textContent = p.title;
-  document.getElementById("modalPrice").textContent = p.price;
+  document.getElementById("modalPrice").textContent = formatPrice(p.price);
   document.getElementById("modalDesc").textContent = p.desc;
   document.getElementById("etsyLink").href = p.etsy;
   const demo = document.getElementById("demoLink");
