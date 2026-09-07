@@ -1,0 +1,21 @@
+{
+  "name": "SocialClubFrames",
+  "short_name": "SocialClubFrames",
+  "description": "Digital party invitations, selfie frames, photo props and editable party designs by Latoyya Smith.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff2f8a",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
